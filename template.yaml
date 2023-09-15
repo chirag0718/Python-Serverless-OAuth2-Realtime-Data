@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  serverless-restapi
+
+Resources:
+  RealTimeDataBucket:
+  RealTimeDataFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: serverless_api/
+      Handler: save_realtime_data.lambda_handler
+      Runtime: python3.10
+      Architectures:
+        - x86_64
+      Events:
+        RealTimeData:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /real-time-data
+            Method: post
